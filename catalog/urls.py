@@ -1,5 +1,5 @@
-from django.urls import path, include
-from catalog import views, admin
+from django.urls import path
+from catalog import views
 from catalog.apps import CatalogConfig
 
 
