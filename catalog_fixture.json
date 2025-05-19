@@ -1,0 +1,57 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 7,
+    "fields": {
+        "name": "Роман",
+        "description": "Популярный роман",
+        "image": "products/roman.jpg",
+        "category": 5,
+        "price": "500.00",
+        "created_at": "2025-05-19T18:27:13.387Z",
+        "updated_at": "2025-05-19T18:27:13.387Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 8,
+    "fields": {
+        "name": "Футболка",
+        "description": "Мягкая хлопковая футболка",
+        "image": "products/tshirt.jpg",
+        "category": 6,
+        "price": "1500.00",
+        "created_at": "2025-05-19T18:27:13.388Z",
+        "updated_at": "2025-05-19T18:27:13.388Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+        "name": "Учебник",
+        "description": "Учебник по математике",
+        "image": "products/textbook.jpg",
+        "category": 5,
+        "price": "800.00",
+        "created_at": "2025-05-19T18:27:13.388Z",
+        "updated_at": "2025-05-19T18:27:13.388Z"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+        "name": "Книги",
+        "description": "Литература и учебники"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 6,
+    "fields": {
+        "name": "Одежда",
+        "description": "Модная одежда"
+    }
+}
+]
