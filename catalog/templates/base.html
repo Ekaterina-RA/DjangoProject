@@ -42,7 +42,6 @@
       }
     </style>
 
-
   </head>
   <body>
 
@@ -58,8 +57,6 @@
         <h1 class="fw-light">Интернет-магазин товаров</h1>
         <p class="lead text-muted">Товары любого назначения. Найдете все, что Вам требуется сейчас.</p>
         <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
         </p>
       </div>
     </div>
@@ -72,14 +69,11 @@
 <footer class="text-muted py-5">
   <div class="container">
     <p class="float-end mb-1">
-      <a href="#">Back to top</a>
+      <a class="btn btn-primary" href="{% url 'catalog:home'  %}" role="button">На главную</a>
     </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
+    <p class="mb-1">Сайт находится в процессе разработки. Приносим свои извинения</p>
   </div>
 </footer>
-
-
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
 
