@@ -10,6 +10,7 @@ python = "^3.12"
 django = "^5.2.1"
 dotenv = "^0.9.9"
 black = "^25.1.0"
+self = "^2020.12.3"
 
 
 [build-system]
