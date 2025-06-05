@@ -23,9 +23,15 @@ class PostDetailView(DetailView):
         # увеличиваем счетчик просмотров при каждом просмотре
         obj.views_counter += 1
         if obj.views_counter == 100 and not obj.notified:
-            send_mail('Congratulations! The post has reached 100 views', settings.default_from_email, ['ekaterina.kuz@gmail.com'], fail_silently=False,)
+            send_mail(
+                subject='Congratulations! The post has reached 100 views',
+                message=f'Your post "{obj.title}" has reached 100 views!',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.DEFAULT_FROM_EMAIL],
+                fail_silently=False,
+            )
             obj.notified = True
-        obj.save(update_fields=['views_counter'])
+        obj.save(update_fields=['views_counter', 'notified'])
         return obj
 
 # Создание новой статьи
