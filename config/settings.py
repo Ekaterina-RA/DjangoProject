@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+
+from django.conf.global_settings import AUTH_USER_MODEL
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "catalog",
     "blog",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -143,3 +146,8 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'ekaterina.kuz@gmail.com'
 EMAIL_HOST_PASSWORD ='iuse psim atpu loaw' # указан пароль приложения
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/products/'
+LOGOUT_REDIRECT_URL = '/users/login/'
+LOGIN_URL = 'login'

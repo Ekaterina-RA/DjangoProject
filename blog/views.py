@@ -22,10 +22,10 @@ class PostDetailView(DetailView):
         obj = super().get_object(queryset)
         # увеличиваем счетчик просмотров при каждом просмотре
         obj.views_counter += 1
-        if obj.views_counter == 100 and not obj.notified:
+        if obj.views_counter == 30 and not obj.notified:
             send_mail(
-                subject='Congratulations! The post has reached 100 views',
-                message=f'Your post "{obj.title}" has reached 100 views!',
+                subject='Congratulations! The post has reached 30 views',
+                message=f'Your post "{obj.title}" has reached 30 views!',
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[settings.DEFAULT_FROM_EMAIL],
                 fail_silently=False,

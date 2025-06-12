@@ -1,0 +1,8 @@
+<header>
+    <h1>Сайт товаров</h1>
+    {% if user.is_authenticated %}
+        <p>Добро пожаловать, {{ user.email}}!</p>
+    {% else %}
+        <p>Добро пожаловать на сайт товаров!</p>
+    {% endif %}
+</header>
