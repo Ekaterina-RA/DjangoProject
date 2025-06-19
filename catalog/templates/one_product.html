@@ -1,24 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <p class="card-text">Наименование товара: {{ object.name }}</p>
-              <p class="card-text">Стоимость товара: {{ object.price }}</p>
-              <p class="card-text">Описание товара: {{ object.description }}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                 <a class="btn btn-primary" href="{% url 'catalog:product_list' %}" role="button">Назад</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+<div class="container py-5">
+  <h2 class="mb-4">{{ product.title }}</h2>
+  <div class="card">
+    <div class="card-body">
+      <p><strong>Наименование:</strong> {{ product.name }} </p>
+      <p><strong>Цена:</strong> {{ product.price }} ₽</p>
+      <p><strong>Описание:</strong> {{ product.description }}</p>
+      <p><strong>Статус:</strong>
+        {% if product.is_published %}
+          <span class="text-success">Опубликован</span>
+        {% else %}
+          <span class="text-danger">Снят с публикации</span>
+        {% endif %}
+      </p>
+      <div class="mt-4 d-flex gap-2">
+        <a href="{% url 'catalog:product_list' %}" class="btn btn-secondary">Назад к списку</a>
+
+        {% if product.owner == request.user or perms.catalog.change_product %}
+          <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-warning">Редактировать</a>
+        {% endif %}
+
+        {% if product.owner == request.user or perms.catalog.delete_product %}
+          <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+        {% endif %}
+
+        {% if perms.catalog.can_unpublish_product and product.is_published %}
+          <form method="post" action="{% url 'catalog:product_unpublish' product.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-secondary">Снять с публикации</button>
+          </form>
+        {% endif %}
       </div>
     </div>
   </div>
+</div>
 {% endblock %}
+
