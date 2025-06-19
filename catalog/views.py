@@ -1,14 +1,17 @@
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
+from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView, TemplateView
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-
 from .forms import ProductForm
-from .models import Product
+from .models import Product, Category
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import permission_required, login_required
+from .services import get_products_by_category
 
 
 class HomeView(TemplateView):
@@ -18,11 +21,27 @@ class HomeView(TemplateView):
 class ContactsView(TemplateView):
     template_name = "contacts.html"
 
-
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProductDetailView(DetailView):
     model = Product
     template_name = "one_product.html"
     context_object_name = "product"
+
+def products_in_category(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    products = get_products_by_category(category_id)
+    return render(request, 'category_products.html', {'category': category, 'products': products})
+
+def category_products(request, category_id):
+    cache_key = f'category_{category_id}_products'
+    products = cache.get(cache_key)
+
+    if not products:
+        products = list(get_products_by_category(category_id))
+        cache.set(cache_key, products, timeout=60*10)
+
+    category = get_object_or_404(Category, id=category_id)
+    return render(request, 'category_products.html', {'products': products, 'category': category})
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
