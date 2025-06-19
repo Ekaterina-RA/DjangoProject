@@ -3,7 +3,6 @@ from .models import Product
 from django.core.cache import cache
 
 
-
 def get_products_by_category(category_id):
     if not CACHE_ENABLED:
         return Product.objects.filter(category_id=category_id)
@@ -14,4 +13,3 @@ def get_products_by_category(category_id):
     products = Product.objects.all()
     cache.set(key, products)
     return products
-
