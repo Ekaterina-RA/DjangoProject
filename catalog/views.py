@@ -21,27 +21,34 @@ class HomeView(TemplateView):
 class ContactsView(TemplateView):
     template_name = "contacts.html"
 
-@method_decorator(cache_page(60 * 15), name='dispatch')
+
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class ProductDetailView(DetailView):
     model = Product
     template_name = "one_product.html"
     context_object_name = "product"
 
+
 def products_in_category(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
     products = get_products_by_category(category_id)
-    return render(request, 'category_products.html', {'category': category, 'products': products})
+    return render(
+        request, "category_products.html", {"category": category, "products": products}
+    )
+
 
 def category_products(request, category_id):
-    cache_key = f'category_{category_id}_products'
+    cache_key = f"category_{category_id}_products"
     products = cache.get(cache_key)
 
     if not products:
         products = list(get_products_by_category(category_id))
-        cache.set(cache_key, products, timeout=60*10)
+        cache.set(cache_key, products, timeout=60 * 10)
 
     category = get_object_or_404(Category, id=category_id)
-    return render(request, 'category_products.html', {'products': products, 'category': category})
+    return render(
+        request, "category_products.html", {"products": products, "category": category}
+    )
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
